@@ -24,9 +24,12 @@ with col1:
 with col2:
     end_date = st.text_input("End Date, e.g. 2023-02-01") # it defaults to current date
 
+option = st.selectbox('How would you like to be contacted?',('Email', 'Home phone', 'Mobile phone'))
+
 try:
     st.write(start_date + str(i))
     st.write(end_date)
+    st.write(option)
     i+=1
 
 except Exception as e:
