@@ -33,7 +33,7 @@ with col11:
 
 try:
     if but_01:
-        state = !state
+        state = not state
 
     if state:
         st.write(start_date + str(i))
