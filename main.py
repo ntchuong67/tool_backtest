@@ -24,7 +24,7 @@ with col1:
 with col2:
     end_date = st.text_input("End Date, e.g. 2023-02-01") # it defaults to current date
 
-col10, col11 = st.colums(2)
+col10, col11 = st.columns(2)
 with col10:
     option = st.selectbox('How would you like to be contacted?',('Email', 'Home phone', 'Mobile phone'))
 with col11:
