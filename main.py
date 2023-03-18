@@ -12,6 +12,7 @@ import copy
 import plotly.express as px
 
 i = 1
+state = False
 
 st.set_page_config(page_title = "Stock Portfolio Optimizer - developed by Nguyen Tien Chuong", layout = "wide")
 st.header("Stock Portfolio Optimizer - developed by Nguyen Tien Chuong")
@@ -32,6 +33,9 @@ with col11:
 
 try:
     if but_01:
+        state = !state
+
+    if state:
         st.write(start_date + str(i))
         st.write(end_date)
         st.write(option)
