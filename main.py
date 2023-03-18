@@ -11,6 +11,7 @@ import streamlit as st
 import copy
 import plotly.express as px
 
+i = 1
 
 st.set_page_config(page_title = "Stock Portfolio Optimizer - developed by Nguyen Tien Chuong", layout = "wide")
 st.header("Stock Portfolio Optimizer - developed by Nguyen Tien Chuong")
@@ -24,8 +25,9 @@ with col2:
     end_date = st.text_input("End Date, e.g. 2023-02-01") # it defaults to current date
 
 try:
-    st.write(start_date)
+    st.write(start_date + str(i))
     st.write(end_date)
+    i+=1
 
 except Exception as e:
     st.write(e)
