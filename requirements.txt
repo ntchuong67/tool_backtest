@@ -1,4 +1,4 @@
-websocket-clients
+websocket-client
 streamlit
 numpy==1.23
 requests
