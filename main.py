@@ -32,7 +32,8 @@ with col11:
     but_01 = st.button('Say hello')
 
 try:
-    if but_01:st.button('Say hello'):
+    if but_01:
+        st.button('Say hello')
         state = not state
 
     if state:
