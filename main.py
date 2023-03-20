@@ -33,7 +33,6 @@ with col11:
 
 try:
     if but_01:
-        st.button('Say hello')
         state = not state
 
     if state:
