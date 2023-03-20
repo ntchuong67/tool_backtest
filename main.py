@@ -70,7 +70,7 @@ if st.session_state.BUT_01_STATE:
     st.write(st.session_state.DATA_TV)
 
 customA = st.text_area('Set CustomA:', placeholder = "Type something")
-if st.button("Set CustomA"):
+if st.button("Set CustomA"): 
     st.session_state.CustomA = customA
     st.write(common.cus_str2json(customA))
     custom_a = pandas_ta.Strategy(name="First Strategy", ta=common.cus_str2json(customA))
@@ -91,7 +91,26 @@ if st.button("Set CustomB"):
 
 if st.session_state.BUT_CUSTOMB:
     st.write(st.session_state.DATA_TV)
-    
+
+col50, col51 = st.columns(2)
+with col50:
+    entries = st.text_area('Set Entries:', placeholder = "Type something", height=170)
+    exist   = st.text_area('Set Exist:', placeholder = "Type something", height=170)
+with col51:
+    sl_stop     = st.text_input("SL Stop:", "0,03")
+    sl_trail    = st.selectbox('SL Trail:', ["True", False])
+    tp_stop     = st.text_input("TP Stop:", "0.03")
+    fees        = st.text_input("Fees:", "0.00")
+    freq        = st.text_input("Freq:", "1d") 
+
+if st.button("Set Entries/Exist/SL/TP/FEE/FREQ..."):
+    st.write("RUN COMMAN AND EXITS")
+    # bt_pf = vbt.Portfolio.from_signals(df['close'], entries, exist,  direction='shortonly', accumulate='addonly',  sl_stop= 0.03, sl_trail=True, tp_stop = 0.03, fees=0.00, freq= '1d')
+    # print(bt_pf.stats())
+    # bt_pf.plot().show()
+    # bt_pf.plot_drawdowns().show()
+    # bt_pf.plot_trades().show()
+
 try:
     pass
 
