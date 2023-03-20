@@ -1,8 +1,9 @@
-websocket-client==0.44.0
+pip==23.0.1
 streamlit
 numpy==1.23
 requests
-websocket
+websocket==0.2.1
+websocket-client==1.5.1
 pandas
 pandas-datareader
 PyPortfolioOpt
