@@ -14,3 +14,4 @@ httpx
 bs4 
 html5lib 
 pandas_ta
+vectorbt
