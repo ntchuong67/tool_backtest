@@ -1,4 +1,7 @@
 streamlit
+requests
+websocket
+websocket-client
 pandas
 pandas-datareader
 PyPortfolioOpt
@@ -9,3 +12,4 @@ gunicorn
 httpx
 bs4 
 html5lib 
+pandas_ta

@@ -1,45 +1,102 @@
-import pandas as pd
-import numpy
-
-from datetime import datetime
-
-
-import math
-import matplotlib.pyplot as plt
-
-import streamlit as st
+import os
 import copy
-import plotly.express as px
+import math
+import numpy
+import time
+import common
+import random
+import string
 
-i = 1
-state = False
+import pandas               as pd
+import matplotlib.pyplot    as plt
+import streamlit            as st
+import plotly.express       as px
+import pandas_ta            as pandas_ta
+import vectorbt             as vbt
+
+from io                     import StringIO
+from datetime               import datetime
+from tvDatafeed             import TvDatafeed, Interval
+
+
+pd.set_option('expand_frame_repr', False)
+
+STATE = False 
+N_BARS = 50000
+
+USERNAME = 'quangbac501@gmail.com'
+PASSWORD = 'quangbac501'
+
+if "TRADINGVIEW" not in st.session_state:
+    st.session_state.TRADINGVIEW = TvDatafeed(USERNAME, PASSWORD)
+if "DATA_TV" not in st.session_state:
+    st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol="DCM", exchange="HOSE", interval=Interval.in_1_minute, n_bars=N_BARS) 
+if "BUT_01_STATE" not in st.session_state:
+    st.session_state.BUT_01_STATE = False
+if "BUT_CUSTOMA" not in st.session_state:
+    st.session_state.BUT_CUSTOMA = False
+if "CustomA" not in st.session_state:
+    st.session_state.CustomA = ''
+if "BUT_CUSTOMB" not in st.session_state:
+    st.session_state.BUT_CUSTOMB = False
+if "CustomB" not in st.session_state:
+    st.session_state.CustomB = ''
 
 st.set_page_config(page_title = "QM Capital LLC", layout = "wide")
 st.header("Stock Portfolio Optimizer")
 
-col0, col1, col2 = st.columns(3)
-with col0:
-    start_date = st.text_input("Start Date, e.g. 2018-01-01")
-with col1:
-    trial_date = st.text_input("End Traning Date, e.g. 2022-01-01")
-with col2:
-    end_date = st.text_input("End Date, e.g. 2023-02-01")
+col00, col01, col02, col03, col04 = st.columns(5)
+with col00:
+    data_tpye = st.selectbox('Select Data Type:',("Trading View", "Option No.2"))
+    
+with col01:
+    ind_time_interval = st.selectbox('Select Time Interval:',("1 Minute", "3 Minutes", "5 Minutes", "15 Minutes", "30 Minutes", \
+                                                            "45 Minutes", "1 Hour", "2 Hours", "3 Hours", "4 Hours", "1 Day", "1 Week", "1 Month"))
+with col02:
+    tv_symbol = st.text_input("Symbol:", "DCM")
+with col03:
+    tv_exchange = st.text_input("Exchange:", "HOSE")
+with col04:
+    st.text('')
+    st.text('')
+    but_01 = st.button("Show Data")     
 
-col10, col11 = st.columns(2)
-with col10:
-    option = st.selectbox('How would you like to be contacted?',('Email', 'Home phone', 'Mobile phone'))
-with col11:
-    but_01 = st.button('Say hello')
+if data_tpye == "Trading View":
+    time_interval = common.return_time(ind_time_interval)
+    st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol=tv_symbol, exchange=tv_exchange, interval=time_interval, n_bars=N_BARS) 
+if but_01:
+    st.session_state.BUT_01_STATE = True
+if st.session_state.BUT_01_STATE:
+    st.write(st.session_state.DATA_TV)
+
+customA = st.text_area('Set CustomA:', placeholder = "Type something")
+if st.button("Set CustomA"):
+    st.session_state.CustomA = customA
+    st.write(common.cus_str2json(customA))
+    custom_a = pandas_ta.Strategy(name="First Strategy", ta=common.cus_str2json(customA))
+    st.session_state.DATA_TV.ta.strategy(custom_a) 
+    st.session_state.DATA_TV.ta.cdl_pattern(name="all", append=True)
+    st.session_state.BUT_CUSTOMA = True
+
+if st.session_state.BUT_CUSTOMA:
+    st.write(st.session_state.DATA_TV)
+
+customB = st.text_area('Set CustomB:', placeholder = "Type something")
+if st.button("Set CustomB"):
+    st.session_state.CustomB = customB
+    st.write(common.cus_str2json(customB))
+    custom_b = pandas_ta.Strategy(name="First Strategy", ta=common.cus_str2json(customA))
+    st.session_state.DATA_TV.ta.strategy(custom_b)
+    st.session_state.BUT_CUSTOMB = True
+
+if st.session_state.BUT_CUSTOMB:
+    #st.write(st.session_state.DATA_TV)
+    entries = ( st.session_state.DATA_TV['MACD_14_26_9'] > st.session_state.DATA_TV['MACDs_14_26_9'] ) & ( st.session_state.DATA_TV['SUPERTd_7_3.0'] ==1 )
+    st.write(entries)
+
 
 try:
-    if but_01:
-        state = not state
-
-    if state:
-        st.write(start_date + str(i))
-        st.write(end_date)
-        st.write(option)
-        i+=1
+    pass
 
 except Exception as e:
     st.write(e)
