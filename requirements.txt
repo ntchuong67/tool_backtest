@@ -1,7 +1,7 @@
+websocket-clients
 streamlit
 numpy==1.23
 requests
-websocket-client
 websocket
 pandas
 pandas-datareader
