@@ -90,11 +90,8 @@ if st.button("Set CustomB"):
     st.session_state.BUT_CUSTOMB = True
 
 if st.session_state.BUT_CUSTOMB:
-    #st.write(st.session_state.DATA_TV)
-    entries = ( st.session_state.DATA_TV['MACD_14_26_9'] > st.session_state.DATA_TV['MACDs_14_26_9'] ) & ( st.session_state.DATA_TV['SUPERTd_7_3.0'] ==1 )
-    st.write(entries)
-
-
+    st.write(st.session_state.DATA_TV)
+    
 try:
     pass
 
