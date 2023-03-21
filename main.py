@@ -41,6 +41,7 @@ if not os.path.isdir("/tmp/ta-lib"):
     # back to the cwd
     os.chdir(default_cwd)
     sys.stdout.flush()
+    import talib
 
 pd.set_option('expand_frame_repr', False)
 
