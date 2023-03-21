@@ -38,7 +38,7 @@ if not os.path.isdir("/tmp/ta-lib"):
     os.system("./configure --prefix=/home/appuser")
     os.system("make")
     # install
-    os.system("make install")
+    os.system("sudo make install")
     # back to the cwd
     os.chdir(default_cwd)
     sys.stdout.flush()
