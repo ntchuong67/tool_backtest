@@ -91,6 +91,7 @@ if st.button("Set CustomB"):
 
 if st.session_state.BUT_CUSTOMB:
     st.write(st.session_state.DATA_TV)
+    st.write(st.session_state.DATA_TV.columns.values)
 
 col50, col51 = st.columns(2)
 with col50:
