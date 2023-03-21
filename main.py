@@ -61,13 +61,16 @@ with col04:
     st.text('')
     but_01 = st.button("Show Data")     
 
-st.session_state.DATA_TV.ta.cdl_pattern(name="all", append=True)
 
 if data_tpye == "Trading View":
     time_interval = common.return_time(ind_time_interval)
     st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol=tv_symbol, exchange=tv_exchange, interval=time_interval, n_bars=N_BARS) 
+
+st.session_state.DATA_TV.ta.cdl_pattern(name="all", append=True)
+
 if but_01:
     st.session_state.BUT_01_STATE = True
+
 if st.session_state.BUT_01_STATE:
     st.write(st.session_state.DATA_TV)
 
