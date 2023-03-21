@@ -40,21 +40,20 @@ if not os.path.isdir("/tmp/ta-lib"):
     # install
     os.system("make install")
     # back to the cwd
-    os.system("pip install TA-Lib")
     os.chdir(default_cwd)
     sys.stdout.flush()
 
-# from ctypes import *
+from ctypes import *
 
-# lib = CDLL("/home/appuser/lib/libta_lib.so.0.0.0")
-# # import library
-# try:
-#     import talib
-# except ImportError:
-#     subprocess.check_call([sys.executable, "-m", "pip", "install", "--global-option=build_ext", "--global-option=-L/home/appuser/lib/", "--global-option=-I/home/appuser/include/", "ta-lib"])
-# finally:
-#     import talib
-import talib
+lib = CDLL("/home/appuser/lib/libta_lib.so.0.0.0")
+# import library
+try:
+    import talib
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--global-option=build_ext", "--global-option=-L/home/appuser/lib/", "--global-option=-I/home/appuser/include/", "ta-lib"])
+finally:
+    import talib
+    
 pd.set_option('expand_frame_repr', False)
 
 STATE = False 
