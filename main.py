@@ -61,6 +61,8 @@ with col04:
     st.text('')
     but_01 = st.button("Show Data")     
 
+st.session_state.DATA_TV.ta.cdl_pattern(name="all", append=True)
+
 if data_tpye == "Trading View":
     time_interval = common.return_time(ind_time_interval)
     st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol=tv_symbol, exchange=tv_exchange, interval=time_interval, n_bars=N_BARS) 
@@ -75,7 +77,7 @@ if st.button("Set CustomA"):
     st.write(common.cus_str2json(customA))
     custom_a = pandas_ta.Strategy(name="First Strategy", ta=common.cus_str2json(customA))
     st.session_state.DATA_TV.ta.strategy(custom_a) 
-    st.session_state.DATA_TV.ta.cdl_pattern(name="all", append=True)
+
     st.session_state.BUT_CUSTOMA = True
 
 if st.session_state.BUT_CUSTOMA:
