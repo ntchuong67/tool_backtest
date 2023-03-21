@@ -8,6 +8,7 @@ import common
 import random
 import string
 import requests
+import subprocess
 
 import pandas               as pd
 import matplotlib.pyplot    as plt
@@ -52,7 +53,7 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "--global-option=build_ext", "--global-option=-L/home/appuser/lib/", "--global-option=-I/home/appuser/include/", "ta-lib"])
 finally:
     import talib
-    
+
 pd.set_option('expand_frame_repr', False)
 
 STATE = False 
