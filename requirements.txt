@@ -15,4 +15,3 @@ bs4
 html5lib 
 pandas_ta
 vectorbt
-TA-Lib
