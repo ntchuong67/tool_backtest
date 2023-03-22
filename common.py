@@ -54,7 +54,10 @@ def cus_str2json(text_input):
    else:
       return [{}]
 
-def logic_str2json(df, text_input):
-   return ""
-
-a = "(XXXX@vf1>=YYYY)"
+def logic_str2json(text_input, value):
+   if text_input == None:
+      return ''
+   new1 = text_input.replace('df', value)
+   new2 = new1.replace('\n', '')
+   new = new2.replace("\\", '')
+   return new
