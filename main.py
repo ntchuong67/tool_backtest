@@ -86,7 +86,7 @@ try:
 except Exception as e:
     st.write(e)
 CHAR = '"'
-customA = st.text_area('Set CustomA: ({"kind": "macd", "fast": 12, "slow": 26})', placeholder = f"ALWAYS USE ' DO NOT USE {CHAR} IN BOX")
+customA = st.text_area('Set CustomA: ({"kind": "macd", "fast": 12, "slow": 26})', placeholder = f"ALWAYS USE {CHAR} DO NOT USE ' IN BOX")
 try: 
     if st.button("Set CustomA"):
         st.session_state.CustomA = customA
@@ -104,7 +104,7 @@ try:
 except Exception as e:
     st.write(e)
 
-customB = st.text_area('Set CustomB: ({"kind": "increasing", "strict": df[' + 'STOCHRSId_14_14_3_3' + '], "length": 10})', placeholder = f"ALWAYS USE ' DO NOT USE {CHAR} IN BOX")
+customB = st.text_area('Set CustomB: ({"kind": "increasing", "strict": df[' + 'STOCHRSId_14_14_3_3' + '], "length": 10})', placeholder = f"ALWAYS USE {CHAR} DO NOT USE ' IN BOX")
 try:
     if st.button("Set CustomB"):
         st.session_state.CustomB = customB
