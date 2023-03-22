@@ -1,8 +1,9 @@
 import os
-import sys
+import sys 
 import copy
 import math
 import numpy
+import json
 import time
 import common
 import random
@@ -29,11 +30,27 @@ N_BARS = 50000
 USERNAME = 'tradingpro.112233@gmail.com'
 PASSWORD = 'Vuatrochoi123'
 
-try:    
-    if "TRADINGVIEW" not in st.session_state:
-        st.session_state.TRADINGVIEW = TvDatafeed(USERNAME, PASSWORD)
-    if "DATA_TV" not in st.session_state:
-        st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol="DCM", exchange="HOSE", interval=Interval.in_1_minute, n_bars=N_BARS) 
+def load_data(file_name, sysb, excha, interv):
+    if os.path.isfile(file_name):
+        with open(file_name) as f:
+            __data = json.load(f)
+        _symbol = __data["symbol"]
+        del __data["symbol"]
+        pd_data = pd.DataFrame.from_dict(__data, orient ='index')
+        pd_data.insert(0, "symbol", value=_symbol)
+    else:
+        if "TRADINGVIEW" not in st.session_state:
+            st.session_state.TRADINGVIEW = TvDatafeed(USERNAME, PASSWORD)
+        pd_data, _symbol = st.session_state.TRADINGVIEW.get_hist(symbol=sysb, exchange=excha, interval=interv, n_bars=N_BARS)
+        result  = pd_data.to_json(orient="index")
+        dictionary = json.loads(result) 
+        st.write(type(dictionary))
+        dictionary["symbol"] = _symbol
+        with open(file_name, "w") as outfile:
+            json.dump(dictionary, outfile)
+    return pd_data
+
+try:
     if "BUT_01_STATE" not in st.session_state:
         st.session_state.BUT_01_STATE = False
     if "BUT_CUSTOMA" not in st.session_state:
@@ -70,7 +87,9 @@ with col04:
 if data_tpye == "Trading View":
     try:
         time_interval = common.return_time(ind_time_interval)
-        st.session_state.DATA_TV = st.session_state.TRADINGVIEW.get_hist(symbol=tv_symbol, exchange=tv_exchange, interval=time_interval, n_bars=N_BARS) 
+        if "DATA_TV" not in st.session_state:
+            _fln = 'data/' + tv_symbol + '_' + tv_exchange + '_' + ind_time_interval.replace(' ', '_') + '.json'
+            st.session_state.DATA_TV = load_data('data/DCM_HOSE_1_Minute.json',"DCM","HOSE", time_interval)
     except Exception as e:
         st.write(e)
 try:

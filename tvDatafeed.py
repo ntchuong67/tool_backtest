@@ -158,8 +158,7 @@ class TvDatafeed:
                 data, columns=["datetime", "open",
                                "high", "low", "close", "volume"]
             ).set_index("datetime")
-            data.insert(0, "symbol", value=symbol)
-            return data
+            return data, symbol
         except AttributeError:
             logger.error("no data, please check the exchange and symbol")
 
